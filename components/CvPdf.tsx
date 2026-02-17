@@ -8,22 +8,22 @@ Font.register({
   family: 'Roboto',
   fonts: [
     {
-      src: 'https://cdn.jsdelivr.net/fontsource/fonts/roboto-flex@latest/latin-ext-400-normal.ttf',
+      src: '/fonts/Roboto/static/Roboto-Regular.ttf',
       fontWeight: 'normal',
       fontStyle: 'normal',
     },
     {
-      src: 'https://cdn.jsdelivr.net/fontsource/fonts/roboto-flex@latest/latin-ext-400-italic.ttf',
+      src: '/fonts/Roboto/static/Roboto-Italic.ttf',
       fontWeight: 'normal',
       fontStyle: 'italic',
     },
     {
-      src: 'https://cdn.jsdelivr.net/fontsource/fonts/roboto-flex@latest/latin-ext-700-normal.ttf',
+      src: '/fonts/Roboto/static/Roboto-Bold.ttf',
       fontWeight: 'bold',
       fontStyle: 'normal',
     },
     {
-      src: 'https://cdn.jsdelivr.net/fontsource/fonts/roboto-flex@latest/latin-ext-700-italic.ttf',
+      src: '/fonts/Roboto/static/Roboto-BoldItalic.ttf',
       fontWeight: 'bold',
       fontStyle: 'italic',
     },
@@ -98,7 +98,7 @@ const CvPdf: React.FC<CvPdfProps> = ({ cvData }) => {
   const { personalInfo, summary, experience, education, skills, projects } = cvData;
   const summaryBlocks = parseSummaryToBlocks(summary);
 
-  const projHeader = (p: {title:string; context?:string; role:string}) =>
+  const projHeader = (p: { title: string; context?: string; role: string }) =>
     `${p.title}${p.context ? ` (${p.context})` : ''} | ${p.role}`;
 
   return (
@@ -129,10 +129,10 @@ const CvPdf: React.FC<CvPdfProps> = ({ cvData }) => {
           {summaryBlocks.length === 0
             ? <Text style={styles.paragraph}></Text>
             : summaryBlocks.map((b, i) =>
-                b.type === 'p'
-                  ? <Text key={`p-${i}`} style={styles.paragraph}>{b.content}</Text>
-                  : <View key={`li-${i}`} style={styles.listItem}><Text style={styles.bullet}>•</Text><Text style={styles.listText}>{b.content}</Text></View>
-              )
+              b.type === 'p'
+                ? <Text key={`p-${i}`} style={styles.paragraph}>{b.content}</Text>
+                : <View key={`li-${i}`} style={styles.listItem}><Text style={styles.bullet}>•</Text><Text style={styles.listText}>{b.content}</Text></View>
+            )
           }
         </View>
 
