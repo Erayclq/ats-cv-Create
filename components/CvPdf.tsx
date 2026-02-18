@@ -206,6 +206,21 @@ const CvPdf: React.FC<CvPdfProps> = ({ cvData }) => {
             ))}
           </View>
         </View>
+
+        {/* Diller */}
+        {cvData.languages && cvData.languages.length > 0 && (
+          <View style={styles.section} wrap={false}>
+            <View style={styles.sectionTitleWrap}><Text style={styles.sectionTitle}>Languages</Text></View>
+            <View>
+              {cvData.languages.map((lang, i) => (
+                <View key={lang.id} style={{ flexDirection: 'row', marginBottom: 2 }}>
+                  <Text style={{ fontSize: 11, fontWeight: 'bold', color: '#1F2937', marginRight: 2 }}>{lang.language}:</Text>
+                  <Text style={{ fontSize: 11, fontStyle: 'italic', color: '#4B5563' }}>{lang.level}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
       </Page>
     </Document>
   );

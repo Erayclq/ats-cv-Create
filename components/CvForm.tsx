@@ -310,6 +310,40 @@ const CvForm: React.FC<CvFormProps> = ({ cvData, onUpdateField, onAddEntry, onRe
           <span>Add Skill Category</span>
         </button>
       </Section>
+
+      {/* Languages */}
+      <Section title="Languages">
+        {cvData.languages.map((lang) => (
+          <div key={lang.id} className="p-4 border dark:border-gray-700 rounded-md mb-4 relative bg-gray-50 dark:bg-gray-800/50">
+            <button
+              onClick={() => onRemoveEntry('languages', lang.id)}
+              className="absolute top-2 right-2 text-gray-400 dark:text-gray-500 hover:text-red-500"
+              aria-label="Delete language"
+              title="Delete language"
+            >
+              <DeleteIcon />
+            </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input
+                label="Language"
+                value={lang.language}
+                placeholder="e.g. English"
+                onChange={(e) => onUpdateEntry('languages', lang.id, 'language', e.target.value)}
+              />
+              <Input
+                label="Level"
+                value={lang.level}
+                placeholder="e.g. Native, B2, Fluent"
+                onChange={(e) => onUpdateEntry('languages', lang.id, 'level', e.target.value)}
+              />
+            </div>
+          </div>
+        ))}
+        <button onClick={() => onAddEntry('languages')} className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 dark:hover:text-blue-300">
+          <AddIcon />
+          <span>Add Language</span>
+        </button>
+      </Section>
     </div>
   );
 };

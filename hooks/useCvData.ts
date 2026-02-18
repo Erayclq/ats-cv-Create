@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { type CvData, type CvSection, type PersonalInfo, type Experience, type Education, type Skill } from '../types';
+import { type CvData, type CvSection, type PersonalInfo, type Experience, type Education, type Skill, type Language } from '../types';
 import { INITIAL_CV_DATA } from '../constants';
 
 const CV_DATA_STORAGE_KEY = 'cv-data';
@@ -20,6 +20,7 @@ const loadCvDataFromStorage = (): CvData => {
           skills: (Array.isArray(parsedData.skills) && parsedData.skills.length > 0 && !parsedData.skills[0].skills)
             ? [{ id: 'migrated-skills', title: 'General Skills', skills: parsedData.skills }]
             : (parsedData.skills ?? []),
+          languages: parsedData.languages ?? [],
         };
       }
     }
@@ -72,6 +73,8 @@ export const useCvData = () => {
         newEntry = { id: newId, title: '', context: '', role: '', description: '' }; // <-- Bunu ekle!
       } else if (section === 'skills') {
         newEntry = { id: newId, title: 'New Category', skills: [] };
+      } else if (section === 'languages') {
+        newEntry = { id: newId, language: '', level: 'Native' };
       } else {
         newEntry = { id: newId, name: '' };
       }
@@ -89,7 +92,7 @@ export const useCvData = () => {
     }));
   };
 
-  const updateEntry = <T extends Experience | Education | Skill>(section: CvSection, id: string, field: keyof T, value: T[keyof T]) => {
+  const updateEntry = <T extends Experience | Education | Skill | Language>(section: CvSection, id: string, field: keyof T, value: T[keyof T]) => {
     setCvData((prev) => ({
       ...prev,
       [section]: prev[section].map((entry) =>
@@ -141,6 +144,7 @@ export const useCvData = () => {
               if (Array.isArray(importedData.skills) && importedData.skills.length > 0 && !importedData.skills[0].skills) {
                 importedData.skills = [{ id: 'imported-skills', title: 'Imported Skills', skills: importedData.skills }];
               }
+              if (!importedData.languages) { importedData.languages = []; }
               setCvDataInternal(importedData as CvData);
               resolve();
             } else {

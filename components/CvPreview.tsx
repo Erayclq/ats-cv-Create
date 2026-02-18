@@ -136,7 +136,7 @@ const CvPreview: React.FC<CvPreviewProps> = ({ cvData }) => {
         </section>
 
         {/* Yetenekler */}
-        <section>
+        <section className="mb-6">
           <h2 className="text-lg font-bold text-blue-800 uppercase tracking-wider mb-2 border-b-2 border-blue-200 pb-1">Technical Skills</h2>
           <div className="space-y-2">
             {skills.map((category) => (
@@ -153,6 +153,21 @@ const CvPreview: React.FC<CvPreviewProps> = ({ cvData }) => {
             ))}
           </div>
         </section>
+
+        {/* Diller */}
+        {cvData.languages && cvData.languages.length > 0 && (
+          <section>
+            <h2 className="text-lg font-bold text-blue-800 uppercase tracking-wider mb-2 border-b-2 border-blue-200 pb-1">Languages</h2>
+            <div className="space-y-1">
+              {cvData.languages.map((lang) => (
+                <div key={lang.id} className="text-sm text-gray-700">
+                  <span className="font-bold text-gray-900 mr-1">{lang.language}:</span>
+                  <span className="italic">{lang.level}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );

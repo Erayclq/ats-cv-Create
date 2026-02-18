@@ -64,4 +64,8 @@ export const INITIAL_CV_DATA: CvData = {
         "- Implemented CI/CD and containerized services with Docker.",
     },
   ],
+  languages: [
+    { id: "lang1", language: "English", level: "Native" },
+    { id: "lang2", language: "Turkish", level: "Native" },
+  ],
 };

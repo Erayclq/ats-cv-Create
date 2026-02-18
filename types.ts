@@ -37,22 +37,29 @@ export interface SkillCategory {
   skills: Skill[];
 }
 
+export interface Language {
+  id: string;
+  language: string;
+  level: string;
+}
+
 export interface CvData {
   personalInfo: PersonalInfo;
   summary: string;
   experience: Experience[];
   education: Education[];
   skills: SkillCategory[];
+  languages: Language[];
   projects: ProjectItem[];
 }
 
-export type CvSection = 'experience' | 'education' | 'skills' | 'projects'; 
+export type CvSection = 'experience' | 'education' | 'skills' | 'projects' | 'languages';
 
 export interface ProjectItem {
   id: string;
   title: string;
   context?: string;
-  role: string;     
+  role: string;
   description: string;
 }
 
