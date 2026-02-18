@@ -189,11 +189,20 @@ const CvPdf: React.FC<CvPdfProps> = ({ cvData }) => {
         {/* Yetenekler */}
         <View style={styles.section}>
           <View style={styles.sectionTitleWrap}><Text style={styles.sectionTitle}>Technical Skills</Text></View>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            {skills.map((s, i) => (
-              <Text key={s.id} style={{ fontSize: 11, color: '#374151' }}>
-                {s.name}{i < skills.length - 1 ? ', ' : ''}
-              </Text>
+          <View>
+            {skills.map((category) => (
+              <View key={category.id} style={{ flexDirection: 'row', marginBottom: 4 }} wrap={false}>
+                <Text style={{ fontSize: 11, fontWeight: 'bold', color: '#374151', marginRight: 4 }}>
+                  {category.title}:
+                </Text>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', flex: 1 }}>
+                  {category.skills.map((s, i) => (
+                    <Text key={s.id} style={{ fontSize: 11, color: '#374151' }}>
+                      {s.name}{i < category.skills.length - 1 ? ', ' : ''}
+                    </Text>
+                  ))}
+                </View>
+              </View>
             ))}
           </View>
         </View>

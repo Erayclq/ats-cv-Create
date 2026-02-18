@@ -31,12 +31,18 @@ export interface Skill {
   name: string;
 }
 
+export interface SkillCategory {
+  id: string;
+  title: string;
+  skills: Skill[];
+}
+
 export interface CvData {
   personalInfo: PersonalInfo;
   summary: string;
   experience: Experience[];
   education: Education[];
-  skills: Skill[];
+  skills: SkillCategory[];
   projects: ProjectItem[];
 }
 

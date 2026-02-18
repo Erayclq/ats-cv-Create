@@ -8,7 +8,7 @@ interface CvFormProps {
   onUpdateField: (section: 'personalInfo', field: keyof CvData['personalInfo'], value: string) => void;
   onAddEntry: (section: CvSection) => void;
   onRemoveEntry: (section: CvSection, id: string) => void;
-  onUpdateEntry: (section: CvSection, id: string, field: string, value: string) => void;
+  onUpdateEntry: (section: CvSection, id: string, field: string, value: any) => void;
   onUpdateSummary: (summary: string) => void;
 }
 
@@ -179,89 +179,135 @@ const CvForm: React.FC<CvFormProps> = ({ cvData, onUpdateField, onAddEntry, onRe
         </button>
       </Section>
 
-{/* Education */}
-<Section title="Education">
-  {cvData.education.map((edu) => (
-    <div
-      key={edu.id}
-      className="p-4 border dark:border-gray-700 rounded-md mb-4 relative bg-gray-50 dark:bg-gray-800/50"
-    >
-      <button
-        onClick={() => onRemoveEntry('education', edu.id)}
-        className="absolute top-2 right-2 text-gray-400 dark:text-gray-500 hover:text-red-500"
-        aria-label="Delete education"
-        title="Delete education"
-      >
-        <DeleteIcon />
-      </button>
+      {/* Education */}
+      <Section title="Education">
+        {cvData.education.map((edu) => (
+          <div
+            key={edu.id}
+            className="p-4 border dark:border-gray-700 rounded-md mb-4 relative bg-gray-50 dark:bg-gray-800/50"
+          >
+            <button
+              onClick={() => onRemoveEntry('education', edu.id)}
+              className="absolute top-2 right-2 text-gray-400 dark:text-gray-500 hover:text-red-500"
+              aria-label="Delete education"
+              title="Delete education"
+            >
+              <DeleteIcon />
+            </button>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input
-          label="School"
-          value={edu.school}
-          placeholder="University Name"
-          onChange={(e) => onUpdateEntry('education', edu.id, 'school', e.target.value)}
-          autoComplete="organization"
-        />
-        <Input
-          label="Degree & Program"
-          value={edu.degree}
-          placeholder="Degree and Program (e.g. BSc Computer Engineering)"
-          onChange={(e) => onUpdateEntry('education', edu.id, 'degree', e.target.value)}
-        />
-        <Input
-          label="Start Date"
-          value={edu.startDate}
-          placeholder="Month Year"
-          onChange={(e) => onUpdateEntry('education', edu.id, 'startDate', e.target.value)}
-        />
-        <Input
-          label="End Date"
-          value={edu.endDate}
-          placeholder="Month Year"
-          onChange={(e) => onUpdateEntry('education', edu.id, 'endDate', e.target.value)}
-        />
-      </div>
-    </div>
-  ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Input
+                label="School"
+                value={edu.school}
+                placeholder="University Name"
+                onChange={(e) => onUpdateEntry('education', edu.id, 'school', e.target.value)}
+                autoComplete="organization"
+              />
+              <Input
+                label="Degree & Program"
+                value={edu.degree}
+                placeholder="Degree and Program (e.g. BSc Computer Engineering)"
+                onChange={(e) => onUpdateEntry('education', edu.id, 'degree', e.target.value)}
+              />
+              <Input
+                label="Start Date"
+                value={edu.startDate}
+                placeholder="Month Year"
+                onChange={(e) => onUpdateEntry('education', edu.id, 'startDate', e.target.value)}
+              />
+              <Input
+                label="End Date"
+                value={edu.endDate}
+                placeholder="Month Year"
+                onChange={(e) => onUpdateEntry('education', edu.id, 'endDate', e.target.value)}
+              />
+            </div>
+          </div>
+        ))}
 
-  <button
-    onClick={() => onAddEntry('education')}
-    className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 dark:hover:text-blue-300"
-  >
-    <AddIcon />
-    <span>Add Education</span>
-  </button>
-</Section>
+        <button
+          onClick={() => onAddEntry('education')}
+          className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 dark:hover:text-blue-300"
+        >
+          <AddIcon />
+          <span>Add Education</span>
+        </button>
+      </Section>
 
 
       {/* Skills */}
       <Section title="Skills">
-        <div className="flex flex-wrap gap-2">
-          {cvData.skills.map(skill => (
-            <div key={skill.id} className="flex items-center bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 text-sm font-medium px-3 py-1 rounded-full">
-              <input
-                type="text"
-                value={skill.name}
-                onChange={(e) => onUpdateEntry('skills', skill.id, 'name', e.target.value)}
-                className="bg-transparent focus:outline-none w-auto"
-                style={{ minWidth: `${skill.name.length + 2}ch` }}
-                aria-label="Skill name"
-              />
+        <div className="space-y-6">
+          {cvData.skills.map((category) => (
+            <div key={category.id} className="p-4 border dark:border-gray-700 rounded-md bg-gray-50 dark:bg-gray-800/50 relative">
               <button
-                onClick={() => onRemoveEntry('skills', skill.id)}
-                className="ml-2 text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
-                aria-label="Delete skill"
-                title="Delete skill"
+                onClick={() => onRemoveEntry('skills', category.id)}
+                className="absolute top-2 right-2 text-gray-400 dark:text-gray-500 hover:text-red-500"
+                aria-label="Delete category"
+                title="Delete category"
               >
-                &times;
+                <DeleteIcon />
               </button>
+
+              <div className="mb-4 pr-8">
+                <Input
+                  label="Category Title"
+                  value={category.title}
+                  placeholder="e.g. Languages, Tools"
+                  onChange={(e) => onUpdateEntry('skills', category.id, 'title', e.target.value)}
+                />
+              </div>
+
+              <div className="pl-4 border-l-2 border-gray-200 dark:border-gray-700">
+                <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Skills in this category</label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {category.skills.map((skill) => (
+                    <div key={skill.id} className="flex items-center bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 text-sm font-medium px-3 py-1 rounded-full">
+                      <input
+                        type="text"
+                        value={skill.name}
+                        onChange={(e) => {
+                          const newSkills = category.skills.map(s => s.id === skill.id ? { ...s, name: e.target.value } : s);
+                          onUpdateEntry('skills', category.id, 'skills', newSkills);
+                        }}
+                        className="bg-transparent focus:outline-none w-auto min-w-[30px]"
+                        style={{ width: `${Math.max(skill.name.length, 3)}ch` }}
+                        aria-label="Skill name"
+                      />
+                      <button
+                        onClick={() => {
+                          const newSkills = category.skills.filter(s => s.id !== skill.id);
+                          onUpdateEntry('skills', category.id, 'skills', newSkills);
+                        }}
+                        className="ml-2 text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+                        aria-label="Delete skill"
+                        title="Delete skill"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => {
+                    const newSkill = { id: `skill-${Date.now()}`, name: 'New Skill' };
+                    const newSkills = [...category.skills, newSkill];
+                    onUpdateEntry('skills', category.id, 'skills', newSkills);
+                  }}
+                  className="mt-2 text-sm flex items-center space-x-1 text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 dark:hover:text-blue-300"
+                >
+                  <span className="text-lg">+</span>
+                  <span>Add Skill</span>
+                </button>
+              </div>
             </div>
           ))}
         </div>
+
         <button onClick={() => onAddEntry('skills')} className="mt-4 flex items-center space-x-2 text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 dark:hover:text-blue-300">
           <AddIcon />
-          <span>Add Skill</span>
+          <span>Add Skill Category</span>
         </button>
       </Section>
     </div>

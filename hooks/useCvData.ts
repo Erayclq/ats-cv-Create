@@ -17,7 +17,9 @@ const loadCvDataFromStorage = (): CvData => {
           projects: parsedData.projects ?? [],
           experience: parsedData.experience ?? [],
           education: parsedData.education ?? [],
-          skills: parsedData.skills ?? [],
+          skills: (Array.isArray(parsedData.skills) && parsedData.skills.length > 0 && !parsedData.skills[0].skills)
+            ? [{ id: 'migrated-skills', title: 'General Skills', skills: parsedData.skills }]
+            : (parsedData.skills ?? []),
         };
       }
     }
@@ -68,6 +70,8 @@ export const useCvData = () => {
         newEntry = { id: newId, school: '', degree: '', startDate: '', endDate: '' };
       } else if (section === 'projects') {
         newEntry = { id: newId, title: '', context: '', role: '', description: '' }; // <-- Bunu ekle!
+      } else if (section === 'skills') {
+        newEntry = { id: newId, title: 'New Category', skills: [] };
       } else {
         newEntry = { id: newId, name: '' };
       }
@@ -134,6 +138,9 @@ export const useCvData = () => {
             const importedData = JSON.parse(result);
             // Veri yapısının doğruluğunu kontrol et
             if (importedData && typeof importedData === 'object' && importedData.personalInfo) {
+              if (Array.isArray(importedData.skills) && importedData.skills.length > 0 && !importedData.skills[0].skills) {
+                importedData.skills = [{ id: 'imported-skills', title: 'Imported Skills', skills: importedData.skills }];
+              }
               setCvDataInternal(importedData as CvData);
               resolve();
             } else {

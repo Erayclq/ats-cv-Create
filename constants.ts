@@ -35,10 +35,22 @@ export const INITIAL_CV_DATA: CvData = {
     },
   ],
   skills: [
-    { id: "skill1", name: "React" },
-    { id: "skill2", name: "TypeScript" },
-    { id: "skill3", name: "Node.js" },
-    { id: "skill4", name: "Project Management" },
+    {
+      id: "cat1",
+      title: "Languages & Frameworks",
+      skills: [
+        { id: "skill1", name: "React" },
+        { id: "skill2", name: "TypeScript" },
+        { id: "skill3", name: "Node.js" },
+      ],
+    },
+    {
+      id: "cat2",
+      title: "Tools & Others",
+      skills: [
+        { id: "skill4", name: "Project Management" },
+      ],
+    },
   ],
   projects: [
     {

@@ -54,7 +54,7 @@ const CvPreview: React.FC<CvPreviewProps> = ({ cvData }) => {
     return elements.length ? elements : <p className="text-sm text-gray-700">{text}</p>;
   };
 
-  const projectHeader = (p: {title:string; context?:string; role:string}) =>
+  const projectHeader = (p: { title: string; context?: string; role: string }) =>
     `${p.title}${p.context ? ` (${p.context})` : ''} | ${p.role}`;
 
   return (
@@ -138,11 +138,18 @@ const CvPreview: React.FC<CvPreviewProps> = ({ cvData }) => {
         {/* Yetenekler */}
         <section>
           <h2 className="text-lg font-bold text-blue-800 uppercase tracking-wider mb-2 border-b-2 border-blue-200 pb-1">Technical Skills</h2>
-          <div className="flex flex-wrap">
-            {skills.map((skill, i) => (
-              <span key={skill.id} className="text-sm text-gray-700">
-                {skill.name}{i < skills.length - 1 && ', \u00A0'}
-              </span>
+          <div className="space-y-2">
+            {skills.map((category) => (
+              <div key={category.id} className="text-sm text-gray-700">
+                <span className="font-bold text-gray-900 mr-2">{category.title}:</span>
+                <span>
+                  {category.skills.map((skill, i) => (
+                    <React.Fragment key={skill.id}>
+                      {skill.name}{i < category.skills.length - 1 && ', '}
+                    </React.Fragment>
+                  ))}
+                </span>
+              </div>
             ))}
           </div>
         </section>
