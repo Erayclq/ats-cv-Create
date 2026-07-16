@@ -26,6 +26,13 @@ export interface Education {
   endDate: string;
 }
 
+export interface Achievement {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+}
+
 export interface Skill {
   id: string;
   name: string;
@@ -48,12 +55,13 @@ export interface CvData {
   summary: string;
   experience: Experience[];
   education: Education[];
+  achievements: Achievement[];
   skills: SkillCategory[];
   languages: Language[];
   projects: ProjectItem[];
 }
 
-export type CvSection = 'experience' | 'education' | 'skills' | 'projects' | 'languages';
+export type CvSection = 'experience' | 'education' | 'achievements' | 'skills' | 'projects' | 'languages';
 
 export interface ProjectItem {
   id: string;

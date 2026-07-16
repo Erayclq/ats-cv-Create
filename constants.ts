@@ -34,6 +34,14 @@ export const INITIAL_CV_DATA: CvData = {
       endDate: "Month Year",
     },
   ],
+  achievements: [
+    {
+      id: "ach1",
+      title: "Certificate or Achievement Title",
+      issuer: "Issuing Organization",
+      date: "Month Year",
+    },
+  ],
   skills: [
     {
       id: "cat1",

@@ -186,6 +186,22 @@ const CvPdf: React.FC<CvPdfProps> = ({ cvData }) => {
           ))}
         </View>
 
+        {/* Achievements & Certificates */}
+        {cvData.achievements && cvData.achievements.length > 0 && (
+          <View style={styles.section}>
+            <View style={styles.sectionTitleWrap}><Text style={styles.sectionTitle}>Achievements & Certificates</Text></View>
+            {cvData.achievements.map(ach => (
+              <View key={ach.id} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
+                <View style={{ flexDirection: 'row', flex: 1 }}>
+                  <Text style={{ fontSize: 11, fontWeight: 'bold', color: '#1F2937' }}>{ach.title}</Text>
+                  {ach.issuer ? <Text style={{ fontSize: 11, fontStyle: 'italic', color: '#4B5563' }}> — {ach.issuer}</Text> : null}
+                </View>
+                {ach.date ? <Text style={styles.dates}>{ach.date}</Text> : null}
+              </View>
+            ))}
+          </View>
+        )}
+
         {/* Yetenekler */}
         <View style={styles.section}>
           <View style={styles.sectionTitleWrap}><Text style={styles.sectionTitle}>Technical Skills</Text></View>

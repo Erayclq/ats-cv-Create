@@ -135,6 +135,24 @@ const CvPreview: React.FC<CvPreviewProps> = ({ cvData }) => {
           ))}
         </section>
 
+        {/* Achievements & Certificates */}
+        {cvData.achievements && cvData.achievements.length > 0 && (
+          <section className="mb-6">
+            <h2 className="text-lg font-bold text-blue-800 uppercase tracking-wider mb-2 border-b-2 border-blue-200 pb-1">Achievements & Certificates</h2>
+            {cvData.achievements.map(ach => (
+              <div key={ach.id} className="mb-2">
+                <div className="flex justify-between items-baseline">
+                  <h3 className="text-sm text-gray-700">
+                    <span className="font-bold text-gray-900">{ach.title}</span>
+                    {ach.issuer && <span className="italic text-gray-600"> — {ach.issuer}</span>}
+                  </h3>
+                  {ach.date && <p className="text-sm font-medium text-gray-600">{ach.date}</p>}
+                </div>
+              </div>
+            ))}
+          </section>
+        )}
+
         {/* Yetenekler */}
         <section className="mb-6">
           <h2 className="text-lg font-bold text-blue-800 uppercase tracking-wider mb-2 border-b-2 border-blue-200 pb-1">Technical Skills</h2>

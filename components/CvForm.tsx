@@ -235,6 +235,55 @@ const CvForm: React.FC<CvFormProps> = ({ cvData, onUpdateField, onAddEntry, onRe
       </Section>
 
 
+      {/* Achievements & Certificates */}
+      <Section title="Achievements & Certificates">
+        {cvData.achievements.map((ach) => (
+          <div
+            key={ach.id}
+            className="p-4 border dark:border-gray-700 rounded-md mb-4 relative bg-gray-50 dark:bg-gray-800/50"
+          >
+            <button
+              onClick={() => onRemoveEntry('achievements', ach.id)}
+              className="absolute top-2 right-2 text-gray-400 dark:text-gray-500 hover:text-red-500"
+              aria-label="Delete achievement"
+              title="Delete achievement"
+            >
+              <DeleteIcon />
+            </button>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Input
+                label="Title"
+                value={ach.title}
+                placeholder="e.g. AWS Solutions Architect"
+                onChange={(e) => onUpdateEntry('achievements', ach.id, 'title', e.target.value)}
+              />
+              <Input
+                label="Issuing Organization"
+                value={ach.issuer}
+                placeholder="e.g. Amazon Web Services"
+                onChange={(e) => onUpdateEntry('achievements', ach.id, 'issuer', e.target.value)}
+              />
+              <Input
+                label="Date"
+                value={ach.date}
+                placeholder="Month Year"
+                onChange={(e) => onUpdateEntry('achievements', ach.id, 'date', e.target.value)}
+              />
+            </div>
+          </div>
+        ))}
+
+        <button
+          onClick={() => onAddEntry('achievements')}
+          className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 font-semibold hover:text-blue-800 dark:hover:text-blue-300"
+        >
+          <AddIcon />
+          <span>Add Achievement</span>
+        </button>
+      </Section>
+
+
       {/* Skills */}
       <Section title="Skills">
         <div className="space-y-6">

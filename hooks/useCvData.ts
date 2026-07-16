@@ -17,6 +17,7 @@ const loadCvDataFromStorage = (): CvData => {
           projects: parsedData.projects ?? [],
           experience: parsedData.experience ?? [],
           education: parsedData.education ?? [],
+          achievements: parsedData.achievements ?? [],
           skills: (Array.isArray(parsedData.skills) && parsedData.skills.length > 0 && !parsedData.skills[0].skills)
             ? [{ id: 'migrated-skills', title: 'General Skills', skills: parsedData.skills }]
             : (parsedData.skills ?? []),
@@ -69,6 +70,8 @@ export const useCvData = () => {
         newEntry = { id: newId, jobTitle: '', company: '', startDate: '', endDate: '', description: '' };
       } else if (section === 'education') {
         newEntry = { id: newId, school: '', degree: '', startDate: '', endDate: '' };
+      } else if (section === 'achievements') {
+        newEntry = { id: newId, title: '', issuer: '', date: '' };
       } else if (section === 'projects') {
         newEntry = { id: newId, title: '', context: '', role: '', description: '' }; // <-- Bunu ekle!
       } else if (section === 'skills') {
@@ -145,6 +148,7 @@ export const useCvData = () => {
                 importedData.skills = [{ id: 'imported-skills', title: 'Imported Skills', skills: importedData.skills }];
               }
               if (!importedData.languages) { importedData.languages = []; }
+              if (!importedData.achievements) { importedData.achievements = []; }
               setCvDataInternal(importedData as CvData);
               resolve();
             } else {
